@@ -3,7 +3,7 @@ import type { PlasmoMessaging } from "@plasmohq/messaging"
 const handler: PlasmoMessaging.MessageHandler = async (req, res) => {
   console.log("Received message", req.body)
   const message = await fetch(
-    `https://whitelists-two.vercel.app/api/check-status/test@test.com`, {
+    `https://whitelists-two.vercel.app/api/check-status/${req.body.email}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json"
@@ -16,8 +16,7 @@ const handler: PlasmoMessaging.MessageHandler = async (req, res) => {
   } = await message.json()
 
   res.send({
-    whitelisted: true,
-    message: "You are whitelisted"
+    data
   })
 }
 
